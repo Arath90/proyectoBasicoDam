@@ -2,3 +2,7 @@
   "plugins": ["@babel/plugin-transform-runtime"],
   "presets": ["@babel/preset-env"]
 }
+//Babel?, babel es un transpilador de JavaScript que permite convertir código moderno de JavaScript (ES6+) en una versión compatible con navegadores más antiguos o entornos que no soportan las últimas características del lenguaje.
+//esto es util para asegurar que el código funcione en una amplia variedad de entornos, incluyendo navegadores web y versiones antiguas de Node.js.
+//el archivo .babelrc es un archivo de configuración para Babel, donde se especifican los plugins y presets que Babel debe usar al transpilar el código.
+//en este caso, el preset @babel/preset-env se utiliza para convertir el código ES6+ en una versión compatible con el entorno de ejecución actual, y el plugin @babel/plugin-transform-runtime ayuda a optimizar el código generado al reutilizar funciones auxiliares de Babel en lugar de incluirlas en cada archivo transpilado.

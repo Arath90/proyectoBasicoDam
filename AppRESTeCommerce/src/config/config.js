@@ -9,3 +9,8 @@ export default {
     //DB_PASSWORD: process.env.DB_PASSWORD || 'admin',
     //DB_USER: process.env.DB_USER || 'admin',
 }
+//este archivo se encarga de leer las variables de entorno y exportarlas para que puedan ser usadas en otros archivos del proyecto.
+
+//lee las variables de entorno desde el archivo .env y las asigna a las propiedades del objeto exportado.
+
+//pero que no config.js tiene variables tambien?, asi es, pero estas son las que se usan en el proyecto y config.js las lee desde aqui.

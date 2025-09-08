@@ -1,0 +1,69 @@
+# Archivo: ProdServ.http
+# Descripción:
+# Este archivo permite probar las operaciones GET de la API de productos y servicios.
+# Se define la variable @api con la URL base de la API local.
+# Cada bloque realiza una petición GET para obtener todos los productos/servicios o uno específico.
+# Los resultados esperados se muestran como ejemplo debajo de cada petición.
+
+@api = http://localhost:3000/api/v1/prod-serv
+#@api = http://187.229.22.99:8010/api/v1/prod-serv
+
+### GET - Obtener todos los productos/servicios
+GET {{api}}
+# Resultado esperado (ejemplo):
+# [
+#   {
+#     "IdProdServPK": 1,
+#     "DesProdServ": "Laptop Dell Inspiron",
+#     "IdProdServOK": "LAP001",
+#     "IdProdServBK": "PROD-2024-01",
+#     ...
+#   },
+#   {
+#     "IdProdServPK": 2,
+#     "DesProdServ": "Mouse Logitech",
+#     "IdProdServOK": "MOU001",
+#     "IdProdServBK": "PROD-2024-02",
+#     ...
+#   }
+# ]
+
+### GET ITEM - Obtener producto/servicio por PK (IdProdServPK)
+GET {{api}}/1
+# Resultado esperado (ejemplo):
+# {
+#   "IdProdServPK": 1,
+#   "DesProdServ": "Laptop Dell Inspiron",
+#   "IdProdServOK": "LAP001",
+#   "IdProdServBK": "PROD-2024-01",
+#   ...
+# }
+
+### GET ITEM - Obtener producto/servicio por clave operativa (OK)
+GET {{api}}/1?keyType=OK
+# Resultado esperado (ejemplo):
+# {
+#   "IdProdServPK": 1,
+#   "DesProdServ": "Laptop Dell Inspiron",
+#   "IdProdServOK": "LAP001",
+#   "IdProdServBK": "PROD-2024-01",
+#   ...
+# }
+
+### GET ITEM - Obtener producto/servicio por clave de negocio (BK)
+GET {{api}}/15058?keyType=BK
+# Resultado esperado (ejemplo):
+# {
+#   "IdProdServPK": 15058,
+#   "DesProdServ": "Monitor Samsung 24\"",
+#   "IdProdServOK": "MON024",
+#   "IdProdServBK": "PROD-2024-15058",
+#   ...
+# }
+
+
+# Nota: 
+# Cada petición debe devolver un objeto JSON con los datos del producto/servicio solicitado.
+# Si el producto/servicio no existe, la API debe responder con un error 404.
+# Los ejemplos muestran la estructura esperada de los resultados
+# 

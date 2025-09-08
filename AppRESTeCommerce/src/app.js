@@ -2,9 +2,13 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import config from './config/config';
+import routeAPI from './api/v1/routes/index.js';
 //se declara la app de express y se configuran los middlewares generales y las rutas de la aplicacion.
 //luego se exporta la app para que pueda ser usada en otros archivos del proyecto.
 const app = express();
+//FIC: Establece la conexion a la BD 
+import { mongoose } from './config/database.config';
+// Settings ------------------------------------------------------------------------------------
 // estos settings son para que heroku pueda asignar el puerto dinamicamente
 app.set('port', config.PORT); //se establece el puerto en el que se ejecutara el servidor, desde config.js
 // Middlewares generales-------------------------------------------------------------------------
@@ -40,3 +44,7 @@ app.get('/DrFIC', (req,res)=>{
 })
 //exportacion de la app para que pueda ser usada en otros archivos del proyecto
 export default app;
+
+// Routes 
+//!NOTA 6.4
+routeAPI(app);

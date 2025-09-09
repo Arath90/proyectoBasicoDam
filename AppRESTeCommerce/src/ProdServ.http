@@ -67,3 +67,5 @@ GET {{api}}/15058?keyType=BK
 # Si el producto/servicio no existe, la API debe responder con un error 404.
 # Los ejemplos muestran la estructura esperada de los resultados
 # 
+
+

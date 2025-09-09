@@ -9,7 +9,6 @@ export default {
     DB_PASSWORD: process.env.DB_PASSWORD || 'admin',
     DB_USER: process.env.DB_USER || 'admin',
 
-    
 }
 //este archivo se encarga de leer las variables de entorno y exportarlas para que puedan ser usadas en otros archivos del proyecto.
 

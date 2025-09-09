@@ -43,3 +43,41 @@ export const getProdServItem = async (id, keyType) => {
     throw boom.internal(error); // Maneja errores como HTTP 500.
   } 
 };
+
+//-----------------------------------------------------------------------------
+// Nota 7.1 postProdServ
+
+//Commerce
+// POST (ADD) Productos y/o Servicios.
+// Recibe un objeto con la estructura del modelo ProdServ.
+// Crea una nueva instancia del modelo y la guarda en la base de datos.
+// Retorna el documento guardado o lanza un error si ocurre algún problema.
+
+export const postProdServItem = async (paProdServItem) => {
+	try {
+		const newProdServItem = new ProdServ(paProdServItem);
+
+		return await newProdServItem.save();//basicamente guarda el nuevo item en la base de datos y lo retorna 
+    // para que pueda ser usado despues.
+    /* EJEMPLO EN BASE AL MODELO DE PROD SERV
+    {
+      *"IdProdServOK": "PS1001",
+      *"IdProdServBK": "BK1001",
+      *"Name": "Producto de Ejemplo",
+      *"Description": "Descripción del producto de ejemplo",
+      *"Price": 29.99,
+      *"Stock": 100,
+      *"Category": "Electrónica"
+  }
+
+  !SON TODOS? LOS CAMPOS REQUERIDOS? NO, SOLO LOS QUE SON REQUERIDOS EN EL MODELO,
+  !LOS DEMAS SON OPCIONALES Y PUEDEN SER AGREGADOS SEGUN LA NECESIDAD.
+  !TAMBIEN SE PUEDEN AGREGAR CAMPOS ADICIONALES SI EL MODELO LO PERMITE.
+  !ESTO ES SOLO UN EJEMPLO BASICO PARA ILUSTRAR EL USO DE LA FUNCION.
+    */
+	} catch (error) { //!aqui ya se maneja el erorr
+  //el error en especifico es un error de validacion de mongoose directo de la libraria
+  //por lo que no es necesario usar boom
+		throw error;
+	}
+};

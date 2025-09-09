@@ -8,7 +8,7 @@
 
 import * as ProdServServices from '../services/prodServ.service';
 import boom from '@hapi/boom';
-
+import express from 'express'; //!se importa express pq req,res,next son parametros que se pasan automaticamente en las funciones de express
 // -----------------------------------------------------------------------------
 // *GET: Todos los Productos/Servicios.
 // Endpoint para obtener todos los productos/servicios registrados.
@@ -57,3 +57,49 @@ export const getProdServItem = async (req, res, next) => {
 !y responder con el formato y código adecuado según el resultado.
 !La documentación explica el propósito, parámetros y flujo de cada endpoint.
 */
+//-----------------------------------------------------------------------------
+// Nota 7.2 Crear controlador para Productos y Servicios POST API
+//-----------------------------------------------------------------------------
+// Controlador POST para Productos y Servicios
+/**
+ *Este método maneja la creación de un nuevo producto o servicio en la colección.
+ * Recibe los datos del nuevo producto/servicio en el cuerpo de la solicitud (req.body),
+ * los envía al servicio correspondiente para guardarlos en la base de datos,
+ * y responde al cliente con el resultado.
+ *
+ * Parámetros:
+ * - req: Objeto de solicitud HTTP. Aquí se recibe el JSON con los datos del nuevo producto/servicio.
+ * - res: Objeto de respuesta HTTP. Se usa para enviar el resultado al cliente.
+ * - next: Función para pasar el control al siguiente middleware en caso de error.
+ *
+ * Flujo detallado:
+ * 1. Obtiene el objeto con los datos del nuevo producto/servicio desde req.body.
+ * 2. Llama al servicio postProdServItem para intentar guardar el registro en la base de datos y espera su respuesta.
+ * 3. Valida la respuesta del servicio:
+ *    - Si no se pudo crear, lanza un error 400 (badRequest) usando Boom.
+ *    - Si se creó correctamente, responde con status 201 y el objeto guardado en formato JSON.
+ * 4. Si ocurre cualquier error en el proceso, lo imprime en consola y lo pasa al middleware de manejo de errores.
+ */
+
+export const postProdServItem = async (req, res, next) => { 
+  try { 
+    // 1. Obtener los datos enviados por el cliente.
+    const paProdServItem = req.body; 
+
+    // 2. Intentar guardar el nuevo producto/servicio usando el servicio correspondiente.
+    const newProdServItem = await ProdServServices.postProdServItem(paProdServItem); 
+
+    // 3. Validar la respuesta del servicio.
+    if (!newProdServItem) { 
+      // Si no se pudo crear, lanzar error 400.
+      throw boom.badRequest('No se pudo crear el Producto y/o Servicio.'); 
+    } else { 
+      // Si se creó correctamente, responder con status 201 y el objeto creado.
+      res.status(201).json(newProdServItem); 
+    } 
+  } catch (error) { 
+    // 4. Manejar cualquier error inesperado.
+    console.log(error); 
+    next(error); 
+  } 
+};

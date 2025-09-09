@@ -35,7 +35,7 @@ function MyPromises() {
     // Ejemplo de encadenamiento de Promesas con manejo de error:
     // Se llama a fcnSumarUno tres veces, cada vez con el resultado anterior.
     // Si en algún paso el número es >= 7, se ejecuta el bloque .catch().
-    fcnSumarUno(5) 
+    fcnSumarUno(2) 
         .then(fcnSumarUno) 
         .then(fcnSumarUno) 
         .then(nuevoNumero => { 

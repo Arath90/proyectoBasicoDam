@@ -1,4 +1,6 @@
-
+//MyPromisesRace.jsx
+//este es una funcion que tiene la finalidad de demostrar el uso de Promise con diferentes tiempos de espera y observar su comportamiento
+//ademas de la manera en que se definen las funciones que regresan promesas mediante resolve y reject.
 function MyPromisesRace() {
 
     // funcion normal que regresa una promesa
@@ -38,7 +40,7 @@ function MyPromisesRace() {
     // La promesa que se resuelva primero, gana. Y se obtiene su resultado.
     //EN BASE A LOS PARAMETROS Y TIEMPOS DEFINIDOS, GANA LA PROMESA DE fcnSumarLento PORQUE TIENE MENOR TIEMPO DE ESPERA (800ms)
     //y sus condiciones de reject no se cumplen.
-    //!pero porque no se cumplen diras pequeña niña que llora?
+    //! pero... porque no se cumplen diras pequeña niña que llora?
     //pues porque la promesa de fcnSumarRapido tiene un tiempo de espera mayor (1000ms)
     //y ademas su condicion de reject se encuentra despues del resolve, por lo que nunca se cumple.
     //asi que si, al igual que las elecciones a presidente, gana el que tenga el favoritismo del publico (osea yo o tu el que mueve los tiempos).

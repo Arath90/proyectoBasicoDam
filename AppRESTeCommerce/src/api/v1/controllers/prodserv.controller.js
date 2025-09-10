@@ -104,3 +104,59 @@ export const postProdServItem = async (req, res, next) => {
     next(error); 
   } 
 };
+//!nota 8.2------------------------------------------------------------------
+// PUT: Actualizar un Producto/Servicio por IdProdServOK (default) o IdProdServBK (?keyType=BK)
+export const putProdServItem = async (req, res, next) => {
+  try {
+    const { id } = req.params;                 // valor de la clave (OK o BK)
+    console.log('Controller id:', id);
+    const keyType = req.query.keyType || 'OK'; // 'OK' | 'BK'
+    console.log('keyType:', keyType);
+    const body = req.body;
+    console.log('Controller body:', body);
+    // Saca el usuario de req.user (si existe por autenticación) o de un header personalizado 'x-user'
+    const userId = req.user?.email || req.headers['x-user'] || 'system';
+
+    const updated = await ProdServServices.putProdServItem(id, body, keyType, userId);
+    console.log('Actualizado:', updated);
+    if (!updated) {
+      throw boom.notFound('No se encontró el Producto/Servicio a actualizar.');
+    }
+
+    res.status(200).json(updated);
+  } catch (error) {
+    next(error);
+  }
+};
+//!NOTA 8.2.1---------------------------------------------------------------------------
+// PUT: Upsert de items en un arreglo dentro del documento ProdServ
+//upsert es una operacion que actualiza un documento si existe o lo crea si no existe 
+// en este caso se hace un upsert de items en un arreglo dentro del documento ProdServ
+// el arreglo se especifica en la ruta :arrayName
+// los items a insertar/actualizar se pasan en el body { items: [...], matchKeys?: [...] }
+export const upsertArrayItems = async (req, res, next) => {
+  try {
+    const { id, arrayName } = req.params;      // /prodserv/:id/array/:arrayName
+    const keyType = req.query.keyType || 'OK'; // ?keyType=OK|BK
+    const userId = req.user?.email || req.headers['x-user'] || 'system';
+
+    const { items, matchKeys } = req.body;     // { items: [...], matchKeys?: [...] }
+
+    const result = await ProdServServices.upsertArrayItemsProdServ(
+      id,
+      items,
+      arrayName,
+      matchKeys,
+      keyType,
+      userId
+    );
+
+    if (!result || !result.success) {
+      throw boom.badImplementation('No se pudo realizar el upsert del arreglo.');
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};

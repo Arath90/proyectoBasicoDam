@@ -31,3 +31,9 @@ export default router;
 // !llamando a la funcion postProdServItem
 
 router.post('/', prodServController.postProdServItem);
+//!NOTA 8.3.1---------------------------------------------------------------------------
+// Upsert sobre arreglos del documento (estatus o archivos)
+router.put('/:id/array/:arrayName', prodServController.upsertArrayItems);
+//!NOTA 8.3---------------------------------------------------------------------------
+// PUT de un documento (update por IdProdServOK|BK)
+router.put('/:id', prodServController.putProdServItem);

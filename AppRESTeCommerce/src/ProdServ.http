@@ -5,23 +5,17 @@
 # Cada bloque realiza una petición GET para obtener todos los productos/servicios o uno específico.
 # Los resultados esperados se muestran como ejemplo debajo de cada petición.
 
-@api = http://localhost:3000/api/v1/prod-serv
-#@api = http://187.229.22.99:8010/api/v1/prod-serv
-
-### GET - Obtener todos los productos/servicios
-
 //Commerce
-
 @api = http://localhost:3000/api/v1/prod-serv
 #@api = http://187.229.22.99:8010/api/v1/prod-serv
 ### GET
 GET {{api}}
-### GET ITEM
-GET {{api}}/1
-### GET ITEM
-GET {{api}}/1?keyType=OK
-### GET ITEM
-GET {{api}}/15058?keyType=BK
+### GET ITEM por IdProdServPK (primaria) = 1
+GET {{api}}/100
+### GET ITEM por IdProdServOK = 100 (Alterna)
+GET {{api}}/LAP001?keyType=OK
+### GET ITEM por IdProdServBK = ENSA100 (Alterna)
+GET {{api}}/PROD-2024-01?keyType=BK
 ### POST ITEM PRODUCTO Y/O SERVICIO 
 POST {{api}} 
 Content-Type: application/json 
@@ -176,3 +170,85 @@ Content-Type: application/json
 # Los ejemplos muestran la estructura esperada de los resultados
 # 
 
+#!nota 8.1 a 8.4---------------------------------------------------------------------------
+###
+# PUT (update documento completo/parcial) por IdProdServOK
+# -> usa el controlador putProdServItem (keyType=OK por default)
+PUT {{api}}/LAP001
+Content-Type: application/json
+
+{
+  "DesProdServ": "ENFRIADOR VERTICAL G326 2PTAS CO2 (Actualizado)",
+  "IdMedidaOK": "2",
+  "detail_row": {
+    "UsuarioMod": "sergio"
+  }
+}
+
+###
+# PUT (update documento) por IdProdServBK
+PUT {{api}}/ENSA100?keyType=BK
+Content-Type: application/json
+
+{
+  "DesProdServ": "Cambio por BK",
+  "detail_row": {
+    "UsuarioMod": "sergio"
+  }
+}
+
+###
+# PUT UPSERT ARRAY: cat_prod_serv_estatus
+# -> ruta: /prod-serv/:id/array/:arrayName  (?keyType=OK|BK)
+# Coincidencia por default: ['IdTipoGenEstatusOk','IdGenEstatusOk']
+PUT {{api}}/PS1001/array/cat_prod_serv_estatus
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "IdTipoGenEstatusOk": "EST",
+      "IdGenEstatusOk": "VIG",
+      "TipoEstatus": "VIGENTE",
+      "Actual": "S",
+      "Observacion": "Se mantiene vigente",
+      "detail_row": {
+        "UsuarioReg": "sergio"
+      }
+    },
+    {
+      "IdTipoGenEstatusOk": "EST",
+      "IdGenEstatusOk": "SUSP",
+      "TipoEstatus": "SUSPENDIDO",
+      "Actual": "N",
+      "Observacion": "Solo ejemplo",
+      "detail_row": {
+        "UsuarioReg": "sergio"
+      }
+    }
+  ]
+}
+
+###
+# PUT UPSERT ARRAY: cat_prod_serv_archivos
+# Aquí forzamos match por RutaArchivo (para evitar duplicados por URL)
+PUT {{api}}/PS1001/array/cat_prod_serv_archivos
+Content-Type: application/json
+
+{
+  "matchKeys": ["RutaArchivo"],
+  "items": [
+    {
+      "DesArchivo": "Foto principal",
+      "RutaArchivo": "https://images.pexels.com/photos/3230214/pexels-photo-3230214.jpeg",
+      "IdTipoGenArchivoOK": "IMG",
+      "IdGenArchivoOK": "JPG",
+      "TipoArchivo": "IMAGEN",
+      "Secuencia": 1,
+      "Principal": "S",
+      "detail_row": {
+        "UsuarioReg": "sergio"
+      }
+    }
+  ]
+}

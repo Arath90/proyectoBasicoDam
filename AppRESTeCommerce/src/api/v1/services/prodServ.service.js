@@ -81,6 +81,9 @@ export const postProdServItem = async (paProdServItem) => {
 		throw error;
 	}
 };
+
+//!NOTA 8.1---------------------------------------------------------------------------
+
 // PUT (MODIFY) Productos y/o Servicios
 
 export const putProdServItem = async (id, paProdServItem, keyType = 'OK', userId = 'system') => {

@@ -13,9 +13,9 @@ GET {{api}}
 ### GET ITEM por IdProdServPK (primaria) = 1
 GET {{api}}/100
 ### GET ITEM por IdProdServOK = 100 (Alterna)
-GET {{api}}/LAP001?keyType=OK
+GET {{api}}/100?keyType=OK
 ### GET ITEM por IdProdServBK = ENSA100 (Alterna)
-GET {{api}}/PROD-2024-01?keyType=BK
+GET {{api}}/ENSA100?keyType=BK
 ### POST ITEM PRODUCTO Y/O SERVICIO 
 POST {{api}} 
 Content-Type: application/json 
@@ -174,7 +174,7 @@ Content-Type: application/json
 ###
 # PUT (update documento completo/parcial) por IdProdServOK
 # -> usa el controlador putProdServItem (keyType=OK por default)
-PUT {{api}}/LAP001
+PUT {{api}}/100?keyType=OK
 Content-Type: application/json
 
 {
@@ -187,11 +187,16 @@ Content-Type: application/json
 
 ###
 # PUT (update documento) por IdProdServBK
+#!nota 8.4 put (update documento completo/parcial) por IdProdServBK
+# -> usa el controlador putProdServItem (keyType=OK por default)
+#!Aquí actualizamos el nombre del producto/servicio con IdProdServBK = ENSA100
+#DesProdServ: "Cambio por BK" (antes era "ENFRIADOR VERTICAL G326 2PTAS CO2")
 PUT {{api}}/ENSA100?keyType=BK
 Content-Type: application/json
 
 {
-  "DesProdServ": "Cambio por BK",
+  "DesProdServ": "Dam here we go again",
+  "IdMedidaOK": "1",
   "detail_row": {
     "UsuarioMod": "sergio"
   }
@@ -201,7 +206,12 @@ Content-Type: application/json
 # PUT UPSERT ARRAY: cat_prod_serv_estatus
 # -> ruta: /prod-serv/:id/array/:arrayName  (?keyType=OK|BK)
 # Coincidencia por default: ['IdTipoGenEstatusOk','IdGenEstatusOk']
-PUT {{api}}/PS1001/array/cat_prod_serv_estatus
+#!Aquí forzamos match por IdTipoGenEstatusOk e IdGenEstatusOk (para evitar duplicados)
+#* Si el item ya existe (match), se actualiza. Si no, se inserta.
+#* En este ejemplo, se actualiza el estatus VIGENTE y se agrega el estatus SUSPENDIDO
+#? Esto nos debe devolver 2 items en el array (VIGENTE y SUSPENDIDO) 
+#? Si volvemos a correr este mismo PUT, solo se actualiza el estatus VIGENTE (no se duplica SUSPENDIDO)
+PUT {{api}}/LAP001/array/cat_prod_serv_estatus
 Content-Type: application/json
 
 {
@@ -232,7 +242,7 @@ Content-Type: application/json
 ###
 # PUT UPSERT ARRAY: cat_prod_serv_archivos
 # Aquí forzamos match por RutaArchivo (para evitar duplicados por URL)
-PUT {{api}}/PS1001/array/cat_prod_serv_archivos
+PUT {{api}}/LAP001/array/cat_prod_serv_archivos
 Content-Type: application/json
 
 {

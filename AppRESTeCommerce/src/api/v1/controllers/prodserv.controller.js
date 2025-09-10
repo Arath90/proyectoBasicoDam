@@ -114,8 +114,8 @@ export const putProdServItem = async (req, res, next) => {
     console.log('keyType:', keyType);
     const body = req.body;
     console.log('Controller body:', body);
-    // Saca el usuario de req.user (si existe por autenticación) o de un header personalizado 'x-user'
-    const userId = req.user?.email || req.headers['x-user'] || 'system';
+    // prioridad: header X-User -> req.user?.email -> 'system'
+    const userId = req.headers['x-user'] || req.user?.email || 'system';
 
     const updated = await ProdServServices.putProdServItem(id, body, keyType, userId);
     console.log('Actualizado:', updated);

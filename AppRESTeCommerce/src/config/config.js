@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-export default {
+    export default {
     HOST: process.env.HOST || 'NO ENCONTRE VARIABLE DE ENTORNO HOST',
     PORT: process.env.PORT || 'NO ENCONTRE VARIABLE DE ENTORNO PORT',
     API_URL: process.env.API_URL || '/api/v1',

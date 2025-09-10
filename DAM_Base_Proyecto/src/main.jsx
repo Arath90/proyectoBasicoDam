@@ -4,13 +4,15 @@ import './index.css'
 //import App from './App.jsx'
 // import MyFunctions from './functions/MyFunctions.jsx'
 // import MyPromises from './functions/MyPromises.jsx'
-import MyPromisesAll from './functions/MyPromisesAll'
+// import MyPromisesAll from './functions/MyPromisesAll'
+import MyPromisesRace from './functions/MyPromisesRace.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
     {/* <MyFunctions /> */}
     {/* <MyPromises /> */}
-    <MyPromisesAll />
+    {/* <MyPromisesAll /> */}
+    <MyPromisesRace />
   </StrictMode>,
 )
 

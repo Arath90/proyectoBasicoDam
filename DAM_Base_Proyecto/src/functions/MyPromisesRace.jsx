@@ -18,16 +18,16 @@ function MyPromisesRace() {
     };
 
     // esta es la manera mas optimizada de definir una funcion
-    //pero de tipo arrow (flecha) que tambien regresa una promesa 
+    //pero de tipo arrow (flecha) que tambien regresa una promesa
     //pero el resultado se obtiene mas rapido.
     let fcnSumarRapido = (numero)=>{
         return new Promise(function(resolve, reject){
             setTimeout(function(){
                 resolve( numero + 1 );
-                reject('Error en la promesa de la funcion Sumar Rapido');//!porque poner aqui el reject si nunca se cumple?
+                reject('Error en la promesa de la funcion Sumar Rapido');
+                //!porque poner aqui el reject si nunca se cumple?
                 //esto nunca se cumple porque el resolve se ejecuta primero
-                //y una vez que se ejecuta el resolve, la promesa ya se considera resuelta
-                //y el reject ya no tiene efecto.
+                //y una vez que se ejecuta el resolve, la promesa ya se considera resuelta y el reject ya no tiene efecto.
                 //si quisieramos que el reject se cumpliera, tendriamos que ponerlo antes del resolve
                 //pero entonces la promesa siempre se rechazaria y nunca se resolveria.
                 //asi que no tiene sentido ponerlo despues del resolve.
@@ -46,16 +46,20 @@ function MyPromisesRace() {
     //asi que si, al igual que las elecciones a presidente, gana el que tenga el favoritismo del publico (osea yo o tu el que mueve los tiempos).
     Promise.race([fcnSumarLento(5), fcnSumarRapido(10)])
     .then(respuesta =>{
+        //Respuesta con mayusculas porque es un dato que viene de fuera
+        //y asi se distingue de las variables locales.
+        //pero de donde fuera mi ñero? pues de las promesas que se estan ejecutando.
+        //osease de fcnSumarLento y fcnSumarRapido.
         console.log('Respuesta:', respuesta);
     })
     .catch(error=>{
         console.log("Error en la respuesta de la promesa: ", error);
     });
-
     return (
         <>
             <div>
                 <h1>
+
                     Programa de Funciones con Promesas RACE
                 </h1>
             </div>

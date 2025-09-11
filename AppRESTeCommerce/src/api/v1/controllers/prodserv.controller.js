@@ -160,3 +160,17 @@ export const upsertArrayItems = async (req, res, next) => {
     next(error);
   }
 };
+//!NOTA 9.2---------------------------------------------------------------------------
+export const deleteProdServItem = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const keyType = req.query.keyType || 'OK';
+    const deleted = await ProdServServices.deleteProdServItem(id, keyType);
+    if (!deleted) {
+      return next(boom.notFound('No se encontró el Producto y/o Servicio para eliminar.'));
+    }
+    res.status(200).json({ success: true, deleted });
+  } catch (error) {
+    next(error);
+  }
+};

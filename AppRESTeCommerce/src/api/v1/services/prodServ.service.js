@@ -251,3 +251,13 @@ export const upsertArrayItemsProdServ = async (
     throw boom.badImplementation(error);
   }
 };
+//!NOTA 9.1---------------------------------------------------------------------------
+export const deleteProdServItem = async (id, keyType = 'OK') => { 
+  try { 
+    const filter = keyType === 'BK' ? { IdProdServBK: id } : { IdProdServOK: id };
+    const deleted = await ProdServ.findOneAndDelete(filter);
+    return deleted;
+  } catch (error) { 
+    throw boom.badImplementation(error); 
+  } 
+};

@@ -37,3 +37,5 @@ router.put('/:id/array/:arrayName', prodServController.upsertArrayItems);
 //!NOTA 8.3---------------------------------------------------------------------------
 // PUT de un documento (update por IdProdServOK|BK)
 router.put('/:id', prodServController.putProdServItem);
+//!NOTA 9.3---------------------------------------------------------------------------
+router.delete('/:id', prodServController.deleteProdServItem);

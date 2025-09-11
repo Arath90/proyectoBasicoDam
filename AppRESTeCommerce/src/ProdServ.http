@@ -211,7 +211,7 @@ Content-Type: application/json
 #* En este ejemplo, se actualiza el estatus VIGENTE y se agrega el estatus SUSPENDIDO
 #? Esto nos debe devolver 2 items en el array (VIGENTE y SUSPENDIDO) 
 #? Si volvemos a correr este mismo PUT, solo se actualiza el estatus VIGENTE (no se duplica SUSPENDIDO)
-PUT {{api}}/LAP001/array/cat_prod_serv_estatus
+PUT {{api}}/100/array/cat_prod_serv_estatus
 Content-Type: application/json
 
 {
@@ -242,7 +242,7 @@ Content-Type: application/json
 ###
 # PUT UPSERT ARRAY: cat_prod_serv_archivos
 # Aquí forzamos match por RutaArchivo (para evitar duplicados por URL)
-PUT {{api}}/LAP001/array/cat_prod_serv_archivos
+PUT {{api}}/100/array/cat_prod_serv_archivos
 Content-Type: application/json
 
 {
@@ -262,3 +262,25 @@ Content-Type: application/json
     }
   ]
 }
+
+
+
+### DELETE ITEM 
+//Elimina por IdProdServOK.
+//Envía 102 como parámetro id en la URL.
+//Tu backend busca un documento donde IdProdServOK: "102" (ojo: debe ser string, no número).
+//Resultado: Elimina el documento si existe ese valor.
+DELETE {{api}}/100?keyType=OK
+
+
+### DELETE
+DELETE {{api}}
+
+
+### DELETE ITEM
+//Elimina por IdProdServBK.
+//Envía 15058 como parámetro id y keyType=BK como query.
+//Tu backend busca un documento donde IdProdServBK: "15058".
+//Resultado: Elimina el documento si existe ese valor.
+DELETE {{api}}/100?keyType=BK
+

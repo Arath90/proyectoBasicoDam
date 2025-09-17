@@ -2,9 +2,11 @@
   "name": "SAP_CDS",
   "version": "1.0.0",
   "description": "A simple CAP project.",
+  "prvate": true,
   "dependencies": {
     "@sap/cds": "^9",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2"
@@ -17,14 +19,13 @@
 "cds": {
    "folders": {
    "db": "src/api/models",
-   "srv":"src/api/routes"
+   "srv":"src/api/routes",
+   "app":"app"
 }
   },
   "author": "Arath de Jesus Cortez Salinas",
   "license": "ISC",
   "files": [
-    "src"
-  ],
-  "private": true
-
+    "src","app"
+  ]
 }

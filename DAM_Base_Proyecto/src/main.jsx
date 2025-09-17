@@ -5,14 +5,20 @@ import './index.css'
 // import MyFunctions from './functions/MyFunctions.jsx'
 // import MyPromises from './functions/MyPromises.jsx'
 // import MyPromisesAll from './functions/MyPromisesAll'
-import MyPromisesRace from './functions/MyPromisesRace.jsx'
+// import MyPromisesRace from './functions/MyPromisesRace.jsx'
+// import MyDataTypes from './methods/MyDataTypes.jsx'
+// import MyObjects from './methods/MyObjects' 
+import { Contador } from './components/Contador.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
     {/* <MyFunctions /> */}
     {/* <MyPromises /> */}
     {/* <MyPromisesAll /> */}
-    <MyPromisesRace />
+    {/* <MyPromisesRace /> */}
+    {/* <MyDataTypes /> */}
+    {/* <MyObjects /> */}
+    <Contador />
   </StrictMode>,
 )
 

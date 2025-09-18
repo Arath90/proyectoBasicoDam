@@ -4,9 +4,11 @@
   "description": "A simple CAP project.",
   "prvate": true,
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.49.1",
     "@sap/cds": "^9",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
-    "cors": "^2.8.5"
+    "mongoose": "^8.18.1"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2"
@@ -16,19 +18,19 @@
     "dev": "cds watch",
     "start": "cds-serve"
   },
-"cds": {
-   "folders": {
-   "db": "src/api/models",
-   "srv":"src/api/routes",
-   "app":"app"
-}
+  "cds": {
+    "folders": {
+      "db": "src/api/models",
+      "srv": "src/api/routes",
+      "app": "app"
+    }
   },
   "author": "Arath de Jesus Cortez Salinas",
   "license": "ISC",
   "files": [
-    "src","app"
-  ]
-  ,
+    "src",
+    "app"
+  ],
   "requires": {
     "impl": "src/api/controller/inv-inversions-controller.js"
   }

@@ -28,4 +28,8 @@
   "files": [
     "src","app"
   ]
+  ,
+  "requires": {
+    "impl": "src/api/controller/inv-inversions-controller.js"
+  }
 }

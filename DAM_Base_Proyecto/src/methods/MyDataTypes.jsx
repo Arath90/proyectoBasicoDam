@@ -57,7 +57,6 @@ function MyDataTypes() {
                     <br/> 
                             {(Activo) ? 'Activo' : 'No Activo'} 
                     <br/>
-                    
                             Pasatiempos: {Pasatiempos.join(', ')}
                     <br/>
                     Forma 1 de imprimir arreglos

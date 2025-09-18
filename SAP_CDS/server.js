@@ -1,22 +1,25 @@
-
-const cds = require('@sap/cds');
 const express = require('express');
-const cors = require('cors');
+const cds = require('@sap/cds');
+const cors = require('cors')
+const router = express.Router();
 
-// Agrega middlewares y rutas personalizadas al servidor de CAP
-cds.on('bootstrap', (app) => {
-  app.use(express.json({ limit: '500kb' }));
-  app.use(cors());
 
-  app.get('/', (req, res) => {
-    res.end(`SAP CDS está en ejecución... ${req.url}`);
-  });
+module.exports = async (o) => {
+    try{
+        let app = express();
+        app.express = express;
+        app.use(express.json({limit: '500kb'}));
+        app.use(cors());
 
-  // Ejemplo: endpoint de salud
-  app.get('/api/health', (req, res) => {
-    res.json({ ok: true, at: new Date().toISOString() });
-  });
-});
+        app.use('/api', router);
 
-// Delega el arranque al servidor por defecto de CAP
-module.exports = cds.server;
+        o.app = app;
+        o.app.httpServer = await cds.server(o);
+
+        return o.app.httpServer;
+
+    }catch(error){
+        console.error('Error starting server',error);
+        process.exit(1);
+    }
+};

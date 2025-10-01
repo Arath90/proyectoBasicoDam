@@ -1,25 +1,30 @@
+// server.js
 const express = require('express');
 const cds = require('@sap/cds');
-const cors = require('cors')
-const router = express.Router();
+const cors = require('cors');
 
+// 1) Variables de entorno y conexión a Mongo ANTES de cds.server
+require('@dotenvx/dotenvx').config();
+require('./src/config/connectToMongoDB'); // <-- ruta al archivo que hace mongoose.connect(...)
 
-module.exports = async (o) => {
-    try{
-        let app = express();
-        app.express = express;
-        app.use(express.json({limit: '500kb'}));
-        app.use(cors());
+module.exports = async (o = {}) => {
+  try {
+    const app = express();
+    app.use(express.json({ limit: '500kb' }));
+    app.use(cors());
 
-        app.use('/api', router);
+    // si vas a usar rutas personalizadas, añádelas aquí:
+    // app.use('/api', require('./src/api/rest'));
 
-        o.app = app;
-        o.app.httpServer = await cds.server(o);
+    // expón el express app a CDS
+    o.app = app;
 
-        return o.app.httpServer;
+    // arranca CDS usando tu app de Express
+    const srv = await cds.server(o);
 
-    }catch(error){
-        console.error('Error starting server',error);
-        process.exit(1);
-    }
+    return srv;
+  } catch (error) {
+    console.error('Error starting server', error);
+    process.exit(1);
+  }
 };

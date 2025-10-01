@@ -14,8 +14,18 @@ service InversionsRoute @(path:'/api/inv'){
     entity Estrategias as projection on myinv.strategies;
 
     @Core.Description: 'get-all-prices-history'
-    @path :'ObtenerTodo'
+    @path :'getall'
         function getall()
         returns array of priceshistory;
 
+    @Core.Description: 'addOne-prices-history'
+    @path :'addOne' action addOne(prices : priceshistory) 
+    returns array of priceshistory;
+
+     //------------- DELETE -----------------
+    @Core.Description: 'delete-prices-history-by-id'
+    @path :'deleteOne' // Endpoint: /api/inv/delete
+    // Se utiliza el tipo base 'Integer' para el parámetro ID
+    action deleteOne(ID : Int32) 
+    returns array of priceshistory; // Indica si la eliminación fue exitosa
 }

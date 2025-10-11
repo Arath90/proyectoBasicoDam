@@ -1,3 +1,4 @@
+// src/api/services/inv-priceshistory-service.js
 const ztpriceshistory = require('../models/mongodb/ztpriceshistory.js');
 
 async function GetAllPricesHistory(req) {

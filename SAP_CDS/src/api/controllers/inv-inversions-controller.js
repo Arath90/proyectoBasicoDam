@@ -1,3 +1,5 @@
+// src/api/controllers/inv-inversions-controller.js
+//1.- importar cds
 const cds  = require ('@sap/cds')
 //2.-importar el servicio
 const {GetAllPricesHistory,AddOnePricesHistory,DeleteOnePricesHistory    } = require('../services/inv-priceshistory-service');

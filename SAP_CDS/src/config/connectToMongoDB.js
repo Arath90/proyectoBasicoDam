@@ -1,4 +1,4 @@
-// src/config/mongo-conn.js
+// src/config/connectToMongoDB.js
 const mongoose = require('mongoose')
 const cfg = require('./dotenvXConfig')
 
